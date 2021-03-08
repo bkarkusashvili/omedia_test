@@ -1,0 +1,22 @@
+@import 'common';
+
+* {
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    padding: 0 0 30px;
+}
+
+.container {
+    width: 1200px;
+
+    @include lg {
+        padding: 0 40px;
+        width: 100%;
+    }
+
+    @include sm {
+        padding: 0 20px;
+    }
+}

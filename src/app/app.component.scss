@@ -1,0 +1,18 @@
+header,
+main {
+    display: flex;
+    justify-content: center;
+}
+
+header {
+    background-color: #e2e2e2;
+    margin-bottom: 70px;
+    padding: 20px 0;
+    box-shadow: 1px 1px 9px 4px rgb(187 187 187 / 61%);
+
+    h1 {
+        font-weight: bold;
+        font-size: 26px;
+        text-align: center;
+    }
+}

@@ -1,0 +1,45 @@
+<div class="users">
+    <div class="search">
+        <input type="text" [formControl]="search" placeholder="Type for search">
+        <ng-container *ngIf="search.value?.length">
+            <div class="suggests" *ngIf="searchedUsers$ | async as users">
+                <span *ngFor="let user of users" [routerLink]="user.login"
+                    (click)="userService.addSearch(user.login)">{{ user.login }}</span>
+            </div>
+        </ng-container>
+        <div class="last-searchs" *ngIf="userService.lastSearch.length">
+            <span *ngFor="let item of userService.lastSearch" [routerLink]="item">{{item}}</span>
+        </div>
+    </div>
+    <div class="filter">
+        <h3>GitHub most popular users</h3>
+        <div class="view">
+            <span class="material-icons" [ngClass]="{active: viewType === 'list'}"
+                (click)="viewType = 'list'">view_list</span>
+            <span class="material-icons" [ngClass]="{active: viewType === 'grid'}"
+                (click)="viewType = 'grid'">view_module</span>
+        </div>
+    </div>
+    <div class="list" *ngIf="userService.popularUsers$| async as users" [ngClass]="viewType">
+        <div *ngFor="let user of users" class="item">
+            <figure>
+                <img [routerLink]="['/', user.login]" [src]="user.avatar_url" [alt]="user.name">
+            </figure>
+            <div class="info">
+                <div class="name">
+                    <a [routerLink]="['/', user.login]">
+                        {{ user.name }}
+                    </a>
+                    <span>{{ user.type }}</span>
+                </div>
+                <div class="repos">
+                    <h3>User Repos</h3>
+                    <div class="list" *ngIf="user.repos.length">
+                        <span *ngFor="let repo of user.repos">{{ repo.name }}</span>
+                    </div>
+                    <span *ngIf="!user.repos.length">No repos to display</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<div class="user">
+    <a routerLink="/" class="back   ">Back</a>
+    <ng-container *ngIf="user$ | async as user">
+        <div *ngIf="user; else errorBlock;" class="item">
+            <h3 class="username">{{ user.login }}</h3>
+            <div class="content">
+                <figure>
+                    <img [src]="user.avatar_url" [alt]="user.name">
+                </figure>
+                <div class="info">
+                    <div class="name">
+                        <a [href]="user.login | gitUrl" target="_blank">
+                            {{ user.name }}
+                        </a>
+                        <span>{{ user.type }}</span>
+                    </div>
+                    <div class="repos">
+                        <h3>User Repos</h3>
+                        <div class="list" *ngIf="user.repos.length">
+                            <span *ngFor="let repo of user.repos">{{ repo.name }}</span>
+                        </div>
+                        <span *ngIf="!user.repos.length">No repos to display</span>
+                    </div>
+                    <div class="orgs">
+                        <h3>User Organizations</h3>
+                        <div class="list" *ngIf="user.orgs.length">
+                            <div class="item" *ngFor="let org of user.orgs">
+                                <img [src]="org.avatar_url" [alt]="org.login">
+                                <a [href]="org.login | gitUrl" target="_blank">
+                                    {{ org.login }}
+                                </a>
+                            </div>
+                        </div>
+                        <span *ngIf="!user.orgs.length">No organizations to display</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>
+
+<ng-template #errorBlock>
+    User don't exists
+</ng-template>
